@@ -1,6 +1,7 @@
 using ApniDukaan.Infrastructure;
 using ApniDukaan.Core;
 using ApniDukaan.API.Middleware;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,8 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddCoreServices();
 
 // Add Controllers to the Service collections
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(
+    options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 // Build the Web application
 var app = builder.Build();

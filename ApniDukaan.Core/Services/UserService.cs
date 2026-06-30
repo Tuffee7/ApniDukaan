@@ -22,7 +22,7 @@ namespace ApniDukaan.Core.Services
                 Email = registerRequest.Email,
                 Password = registerRequest.Password,
                 PersonName = registerRequest.PersonName,
-                Gender = nameof(registerRequest.Gender)
+                Gender = Convert.ToString(registerRequest.Gender)
             };
 
             ApplicationUser? registeredUser = await _userRepository.AddUser(applicationUser);
@@ -35,8 +35,9 @@ namespace ApniDukaan.Core.Services
                 UserID = registeredUser.UserId,
                 Email = registeredUser.Email,
                 PersonName = registeredUser.PersonName,
+                Gender = registeredUser.Gender,
                 IsAuthenticated = true,
-                //Token = "dummy-token" // In a real application, generate a JWT or similar token here
+                Token = "dummy-token" // In a real application, generate a JWT or similar token here
             };
         }
 
@@ -52,6 +53,7 @@ namespace ApniDukaan.Core.Services
                 UserID = user.UserId,
                 Email = user.Email,
                 PersonName = user.PersonName,
+                Gender = user.Gender,
                 IsAuthenticated = true,
                 Token = "dummy-token" // In a real application, generate a JWT or similar token here
             };

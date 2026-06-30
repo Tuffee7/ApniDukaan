@@ -21,7 +21,7 @@ namespace ApniDukaan.Infrastructure.Repositories
                 UserId = Guid.NewGuid(),
                 Email = email,
                 Password = password,
-                PersonName = "",
+                PersonName = "dummy-person-name",
                 Gender = nameof(GenderOptions.Male)
             };
         }
