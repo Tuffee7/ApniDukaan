@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ApniDukaan.Core.Entities
+﻿namespace ApniDukaan.Core.Entities
 {
     public class ApplicationUser
     {

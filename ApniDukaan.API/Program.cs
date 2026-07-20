@@ -2,6 +2,7 @@ using ApniDukaan.Infrastructure;
 using ApniDukaan.Core;
 using ApniDukaan.API.Middleware;
 using System.Text.Json.Serialization;
+using ApniDukaan.Core.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ builder.Services.AddCoreServices();
 // Add Controllers to the Service collections
 builder.Services.AddControllers().AddJsonOptions(
     options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+// Adding AutoMapper service
+builder.Services.AddAutoMapper(typeof(ApplicationUserMappingProfile).Assembly); // Adding one profile class automatically takes all profile classes in the assembly and registers them with AutoMapper.
 
 // Build the Web application
 var app = builder.Build();
