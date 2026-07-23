@@ -3,6 +3,9 @@ using ApniDukaan.Core;
 using ApniDukaan.API.Middleware;
 using System.Text.Json.Serialization;
 using ApniDukaan.Core.Mappers;
+using ApniDukaan.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using ApniDukaan.Infrastructure.DBContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,9 @@ builder.Services.AddControllers().AddJsonOptions(
 
 // Adding AutoMapper service
 builder.Services.AddAutoMapper(typeof(ApplicationUserMappingProfile).Assembly); // Adding one profile class automatically takes all profile classes in the assembly and registers them with AutoMapper.
+
+// Add DbContext (ensure you have a connection string named "SqlConnection")
+builder.Services.AddDbContext<ApplicationUserDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationUsersSqlConnection")));
 
 // Build the Web application
 var app = builder.Build();

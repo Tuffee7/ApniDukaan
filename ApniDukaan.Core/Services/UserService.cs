@@ -20,13 +20,14 @@ namespace ApniDukaan.Core.Services
 
         public async Task<AuthenticationResponse?> Register(RegisterRequest registerRequest)
         {
-            ApplicationUser applicationUser = new ApplicationUser()
-            {
-                Email = registerRequest.Email,
-                Password = registerRequest.Password,
-                PersonName = registerRequest.PersonName,
-                Gender = Convert.ToString(registerRequest.Gender)
-            };
+            //ApplicationUser applicationUser = new ApplicationUser()
+            //{
+            //    Email = registerRequest.Email,
+            //    Password = registerRequest.Password,
+            //    PersonName = registerRequest.PersonName,
+            //    Gender = Convert.ToString(registerRequest.Gender)
+            //};
+            ApplicationUser applicationUser = _mapper.Map<ApplicationUser>(registerRequest);
 
             ApplicationUser? registeredUser = await _userRepository.AddUser(applicationUser);
 
