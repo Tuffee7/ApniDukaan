@@ -32,7 +32,6 @@ namespace ApniDukaan.Infrastructure.DBContext
                     Gender = "Male"
                 });                
 
-            //string seedData = File.ReadAllText("SeedApplicationUserData.json");
             var assembly = typeof(ApplicationUserDbContext).Assembly;
             using var stream = assembly.GetManifestResourceStream("ApniDukaan.Infrastructure.SeedApplicationUserData.json");
             using var reader = new StreamReader(stream ?? throw new FileNotFoundException("Embedded resource not found"));

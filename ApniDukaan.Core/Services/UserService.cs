@@ -20,13 +20,6 @@ namespace ApniDukaan.Core.Services
 
         public async Task<AuthenticationResponse?> Register(RegisterRequest registerRequest)
         {
-            //ApplicationUser applicationUser = new ApplicationUser()
-            //{
-            //    Email = registerRequest.Email,
-            //    Password = registerRequest.Password,
-            //    PersonName = registerRequest.PersonName,
-            //    Gender = Convert.ToString(registerRequest.Gender)
-            //};
             ApplicationUser applicationUser = _mapper.Map<ApplicationUser>(registerRequest);
 
             ApplicationUser? registeredUser = await _userRepository.AddUser(applicationUser);
@@ -34,15 +27,6 @@ namespace ApniDukaan.Core.Services
             if (registeredUser == null)
                 return null;
 
-            //return new AuthenticationResponse
-            //{
-            //    UserID = registeredUser.UserId,
-            //    Email = registeredUser.Email,
-            //    PersonName = registeredUser.PersonName,
-            //    Gender = registeredUser.Gender,
-            //    IsAuthenticated = true,
-            //    Token = "dummy-token" // In a real application, generate a JWT or similar token here
-            //};
             var authenticationResponse = _mapper.Map<AuthenticationResponse>(registeredUser);
             authenticationResponse.IsAuthenticated = true;
             authenticationResponse.Token = "dummy-token"; // In a real application, generate a JWT or similar token here
@@ -57,15 +41,6 @@ namespace ApniDukaan.Core.Services
             if (user == null)
                 return null;
 
-            //return new AuthenticationResponse
-            //{
-            //    UserID = user.UserId,
-            //    Email = user.Email,
-            //    PersonName = user.PersonName,
-            //    Gender = user.Gender,
-            //    IsAuthenticated = true,
-            //    Token = "dummy-token" // In a real application, generate a JWT or similar token here
-            //};
             var authenticationResponse = _mapper.Map<AuthenticationResponse>(user);
             authenticationResponse.IsAuthenticated = true;
             authenticationResponse.Token = "dummy-token"; // In a real application, generate a JWT or similar token here

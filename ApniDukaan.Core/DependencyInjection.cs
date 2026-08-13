@@ -1,5 +1,7 @@
 ﻿using ApniDukaan.Core.ServiceContracts;
 using ApniDukaan.Core.Services;
+using ApniDukaan.Core.Validator;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ApniDukaan.Core
@@ -16,6 +18,7 @@ namespace ApniDukaan.Core
             // caching, file storage services and other low level components etc.
 
             services.AddScoped<IUserService, UserService>();
+            services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
 
             return services;
         }

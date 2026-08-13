@@ -2,6 +2,8 @@
 using ApniDukaan.Core.Entities;
 using ApniDukaan.Core.RepositoryContracts;
 using ApniDukaan.Infrastructure.DBContext;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApniDukaan.Infrastructure.Repositories
 {
@@ -19,19 +21,68 @@ namespace ApniDukaan.Infrastructure.Repositories
             // Generate new Guid for every new unique UserId
             user.UserId = Guid.NewGuid();
 
-            return user;
+            #region Adding Data using Raw SQL Query
+            //// SQL Query to Insert Data into "ApplicationUsers" table
+            //string sqlQuery = "INSERT INTO ApplicationUsers (UserId, Email, Password, PersonName, Gender) VALUES (@UserId, @Email, @Password, @PersonName, @Gender)";
+
+            //var parameters = new[]
+            //{
+            //    new SqlParameter("@UserId", user.UserId),
+            //    new SqlParameter("@Email", user.Email ?? (object)DBNull.Value),
+            //    new SqlParameter("@Password", user.Password ?? (object)DBNull.Value),
+            //    new SqlParameter("@PersonName", user.PersonName ?? (object)DBNull.Value),
+            //    new SqlParameter("@Gender", user.Gender ?? (object)DBNull.Value)
+            //};
+
+            //// Execute the SQL query (implementation for actual database execution would go here)
+            //// _dbContext.Database.ExecuteSqlRaw(sqlQuery, user.UserId, user.Email, user.Password, user.PersonName, user.Gender);
+            //int rowsAffected = await _dbContext.Database.ExecuteSqlRawAsync(sqlQuery, parameters);
+
+            //if (rowsAffected > 0)
+            //    return user;
+            //else
+            //    return null;
+            #endregion
+
+            #region Adding Data Using Entity Framework LINQ
+
+            var result = await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+
+            if (result != null)
+                return user;
+            else
+                return null;
+            #endregion
         }
 
         public async Task<ApplicationUser?> GetUserByEmailAndPassword(string? email, string? password)
         {
-            return new ApplicationUser
-            {
-                UserId = Guid.NewGuid(),
-                Email = email,
-                Password = password,
-                PersonName = "dummy-person-name",
-                Gender = nameof(GenderOptions.Male)
-            };
+            #region Retrieving Data using Raw SQL Query
+            //string sqlQuery = "SELECT UserId, Email, PersonName, Gender FROM ApplicationUsers WHERE Email = @Email AND Password = @Password";
+            //var parameters = new[] {
+            //    new SqlParameter("@Email", email ?? (object)DBNull.Value),
+            //    new SqlParameter("@Password", password ?? (object)DBNull.Value)
+            //};
+
+            //List<ApplicationUser>? users = await _dbContext.Users.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+
+            //if (users != null && users.Count > 0)
+            //    return users.FirstOrDefault(user => user.Email == email);
+            //else
+            //    return null;
+            #endregion
+
+            #region Retrieving data using Entity Framework LINQ
+
+            var users = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
+
+            if (users != null)
+                return users;
+            else
+                return null;
+
+            #endregion
         }
     }
 }
