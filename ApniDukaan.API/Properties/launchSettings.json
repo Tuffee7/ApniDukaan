@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MSSQL_HOST": "localhost",
-        "MSSQL_PORT": 1433,
+        "MSSQL_PORT": "1433",
         "MSSQL_DATABASE": "ApniDukaanApplicationUsers",
         "MSSQL_USER": "sa",
         "MSSQL_PASSWORD": "admin"
@@ -21,7 +21,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MSSQL_HOST": "localhost",
-        "MSSQL_PORT": 1433,
+        "MSSQL_PORT": "1433",
         "MSSQL_DATABASE": "ApniDukaanApplicationUsers",
         "MSSQL_USER": "sa",
         "MSSQL_PASSWORD": "admin"
@@ -38,7 +38,7 @@
         "ASPNETCORE_HTTPS_PORTS": "8081",
         "ASPNETCORE_HTTP_PORTS": "8080",
         "MSSQL_HOST": "localhost",
-        "MSSQL_PORT": 1433,
+        "MSSQL_PORT": "1433",
         "MSSQL_DATABASE": "ApniDukaanApplicationUsers",
         "MSSQL_USER": "sa",
         "MSSQL_PASSWORD": "admin"
