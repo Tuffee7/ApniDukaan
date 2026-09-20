@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 1433
+      ConnectionStrings__DefaultConnection: "Server=db;Database=ApniDukaanUsers;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+    entrypoint: ["/bin/bash", "/app/docker-entrypoint.sh"]
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - migrate
+    ports:
+      - "5000:80"
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=ApniDukaanUsers;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+
+volumes:
+  mssql-data:

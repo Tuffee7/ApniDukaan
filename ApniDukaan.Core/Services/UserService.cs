@@ -47,5 +47,15 @@ namespace ApniDukaan.Core.Services
 
             return authenticationResponse;
         }
+
+        public async Task<UserDTO?> GetUserByUserID(Guid? userID)
+        {
+            ApplicationUser? user = await _userRepository.GetUserByUserID(userID);
+
+            if (user == null)
+                return null;
+
+            return _mapper.Map<UserDTO>(user);
+        }
     }
 }

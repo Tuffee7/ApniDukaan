@@ -18,5 +18,12 @@ namespace ApniDukaan.Core.RepositoryContracts
         /// <param name="password"></param>
         /// <returns></returns>
         Task<ApplicationUser?> GetUserByEmailAndPassword(string? email, string? password);
+
+        /// <summary>
+        /// Retrieves a user based on the provided user ID.
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        Task<ApplicationUser?> GetUserByUserID(Guid? userID);
     }
 }

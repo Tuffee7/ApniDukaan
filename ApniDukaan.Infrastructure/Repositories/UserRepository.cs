@@ -84,5 +84,15 @@ namespace ApniDukaan.Infrastructure.Repositories
 
             #endregion
         }
+
+        public Task<ApplicationUser?> GetUserByUserID(Guid? userID)
+        {
+            var user =  _dbContext.Users.FirstOrDefaultAsync(user => user.UserId == userID);
+
+            if (user != null)
+                return user;
+            else
+                return Task.FromResult<ApplicationUser?>(null);
+        }
     }
 }

@@ -18,5 +18,12 @@ namespace ApniDukaan.Core.ServiceContracts
         /// <param name="loginRequest"></param>
         /// <returns></returns>
         Task<AuthenticationResponse?> Login(LoginRequest loginRequest);
+
+        /// <summary>
+        /// Retrieves user details based on the provided user ID and returns a UserDTO object.
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        Task<UserDTO?> GetUserByUserID(Guid? userID);
     }
 }

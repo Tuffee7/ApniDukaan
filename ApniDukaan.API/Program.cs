@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using ApniDukaan.Infrastructure;
 using ApniDukaan.Core;
 using ApniDukaan.API.Middleware;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Adding infrastructure services to the dependency injection container using the extension method defined in the Infrastructure project.
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddCoreServices();
 
 // Add Controllers to the Service collections
@@ -20,9 +21,6 @@ builder.Services.AddControllers().AddJsonOptions(
 
 // Adding AutoMapper service
 builder.Services.AddAutoMapper(typeof(ApplicationUserMappingProfile).Assembly); // Adding one profile class automatically takes all profile classes in the assembly and registers them with AutoMapper.
-
-// Add DbContext (ensure you have a connection string named "SqlConnection")
-builder.Services.AddDbContext<ApplicationUserDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationUsersSqlConnection")));
 
 // Fluent Validation
 builder.Services.AddFluentValidationAutoValidation();
@@ -46,6 +44,31 @@ builder.Services.AddCors(options =>
 
 // Build the Web application
 var app = builder.Build();
+// Apply migrations in development or when explicitly enabled via environment variable.
+// In production, migrations should be applied as a separate deployment step (CI/CD or init container).
+//using (var scope = app.Services.CreateScope())
+//{
+//    var env = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+//    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+//    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationUserDbContext>();
+
+//    var enableAutoMigrate = env.IsDevelopment() ||
+//                            Environment.GetEnvironmentVariable("ENABLE_AUTO_MIGRATE") == "true";
+
+//    if (enableAutoMigrate)
+//    {
+//        try
+//        {
+//            logger.LogInformation("Applying EF Core migrations (auto-migrate enabled).");
+//            dbContext.Database.Migrate();
+//        }
+//        catch (Exception ex)
+//        {
+//            logger.LogError(ex, "Automatic migration failed.");
+//            throw;
+//        }
+//    }
+//}
 
 // Adding Exception Handling Middleware to the HTTP request pipeline using the extension method defined in the API project.
 app.UseExceptionHandlingMiddleware();
