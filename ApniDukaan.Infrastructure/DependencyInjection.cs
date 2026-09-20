@@ -23,11 +23,13 @@ namespace ApniDukaan.Infrastructure
             var connectionStringTemplate = configuration.GetConnectionString("ApplicationUsersSqlConnection")!;
 
             var host = Environment.GetEnvironmentVariable("MSSQL_HOST") ?? string.Empty;
+            var port = Environment.GetEnvironmentVariable("MSSQL_PORT") ?? "1433"; // Default SQL Server port
             var database = Environment.GetEnvironmentVariable("MSSQL_DATABASE") ?? string.Empty;
             var user = Environment.GetEnvironmentVariable("MSSQL_USER") ?? string.Empty;
             var password = Environment.GetEnvironmentVariable("MSSQL_PASSWORD") ?? string.Empty;
 
             if (string.IsNullOrWhiteSpace(host) ||
+                string.IsNullOrWhiteSpace(port) ||
                 string.IsNullOrWhiteSpace(database) ||
                 string.IsNullOrWhiteSpace(user) ||
                 string.IsNullOrWhiteSpace(password))
@@ -37,6 +39,7 @@ namespace ApniDukaan.Infrastructure
 
             var connectionString = connectionStringTemplate
                 .Replace("$MSSQL_HOST", host)
+                .Replace("$MSSQL_PORT", port)
                 .Replace("$MSSQL_DATABASE", database)
                 .Replace("$MSSQL_USER", user)
                 .Replace("$MSSQL_PASSWORD", password);

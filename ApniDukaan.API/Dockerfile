@@ -28,6 +28,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV MSSQL_HOST=localhost
+ENV MSSQL_PORT=1433
 ENV MSSQL_DATABASE=ApniDukaanApplicationUsers
 ENV MSSQL_USER=sa
 ENV MSSQL_PASSWORD=admin
