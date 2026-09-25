@@ -76,13 +76,13 @@ app.UseExceptionHandlingMiddleware();
 // Routing
 app.UseRouting();
 
+// CORS middleware to allow cross-origin requests (configure as needed)
+app.UseCors();
+
 // Swagger middleware for API documentation and testing
 app.UseSwagger();
 // Swagger UI middleware for interactive API documentation
 app.UseSwaggerUI();
-
-// CORS middleware to allow cross-origin requests (configure as needed)
-app.UseCors();
 
 // Authentication and Authorization
 app.UseAuthentication();
