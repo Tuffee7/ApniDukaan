@@ -57,5 +57,13 @@ namespace ApniDukaan.Core.Services
 
             return _mapper.Map<UserDTO>(user);
         }
+
+        public async Task<IEnumerable<UserDTO>?> GetAllUsers()
+        {
+            IEnumerable<ApplicationUser>? users = await _userRepository.GetAllUsers();
+            if (users == null)
+                return null;
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
+        }
     }
 }

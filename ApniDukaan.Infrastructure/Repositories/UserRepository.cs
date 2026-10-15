@@ -85,14 +85,23 @@ namespace ApniDukaan.Infrastructure.Repositories
             #endregion
         }
 
-        public Task<ApplicationUser?> GetUserByUserID(Guid? userID)
+        public async Task<ApplicationUser?> GetUserByUserID(Guid? userID)
         {
-            var user =  _dbContext.Users.FirstOrDefaultAsync(user => user.UserId == userID);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.UserId == userID);
 
             if (user != null)
                 return user;
             else
-                return Task.FromResult<ApplicationUser?>(null);
+                return null;
+        }
+
+        public async Task<IEnumerable<ApplicationUser>?> GetAllUsers()
+        {
+            var users = await _dbContext.Users.ToListAsync();
+            if (users != null && users.Count > 0)
+                return users;
+            else
+                return null;
         }
     }
 }

@@ -25,5 +25,11 @@ namespace ApniDukaan.Core.RepositoryContracts
         /// <param name="userID"></param>
         /// <returns></returns>
         Task<ApplicationUser?> GetUserByUserID(Guid? userID);
+
+        /// <summary>
+        /// Retrieves all users from the system.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicationUser>?> GetAllUsers();
     }
 }

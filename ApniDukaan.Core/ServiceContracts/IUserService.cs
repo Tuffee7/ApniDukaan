@@ -25,5 +25,11 @@ namespace ApniDukaan.Core.ServiceContracts
         /// <param name="userID"></param>
         /// <returns></returns>
         Task<UserDTO?> GetUserByUserID(Guid? userID);
+
+        /// <summary>
+        /// Retrieves all users and returns a list of UserDTO objects.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<UserDTO>?> GetAllUsers();
     }
 }
